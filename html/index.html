@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang chủ - Khách sạn Thành Công</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Header + Logo -->
+  <header class="bg-light p-3 text-center">
+    <img src="../img/logo.jpg" alt="Logo Khách sạn" height="80">
+    <h1 class="mt-2">Khách sạn Thành Công</h1>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Trang chủ</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Thanh toán</a></li>
+          <li class="nav-item"><a class="nav-link" href="news.html">Tin tức</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Đăng nhập -->
+  <section class="container mt-4">
+    <h3>Đăng nhập</h3>
+    <form id="loginForm" class="row g-3">
+      <div class="col-md-6">
+        <label for="username" class="form-label">Tên đăng nhập:</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      <div class="col-md-6">
+        <label for="password" class="form-label">Mật khẩu:</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Tìm kiếm phòng -->
+  <section class="container mt-5">
+    <h3>Tìm kiếm phòng</h3>
+    <form class="row g-3" action="rooms.html" method="get">
+      <div class="col-md-4">
+        <label for="loaiPhong" class="form-label">Loại phòng:</label>
+        <select class="form-select" id="loaiPhong" name="loaiPhong">
+          <option value="don">Phòng đơn</option>
+          <option value="doi">Phòng đôi</option>
+          <option value="vip">Phòng VIP</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="ngayDen" class="form-label">Ngày đến:</label>
+        <input type="date" class="form-control" id="ngayDen" name="ngayDen">
+      </div>
+      <div class="col-md-4">
+        <label for="ngayDi" class="form-label">Ngày đi:</label>
+        <input type="date" class="form-control" id="ngayDi" name="ngayDi">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Tìm kiếm</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2025 Khách sạn Thành Công. Mọi quyền được bảo lưu.</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="../libs/jquery/jquery.min.js"></script>
+  <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

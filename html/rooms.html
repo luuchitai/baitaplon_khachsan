@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách phòng - Khách sạn Thành Công</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-light p-3 text-center">
+    <img src="../img/logo.jpg" alt="Logo" height="80">
+    <h1 class="mt-2">Khách sạn Thành Công</h1>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Trang chủ</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+            <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+            <li class="nav-item"><a class="nav-link active" href="checkout.html">Thanh toán</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">Tin tức</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tabs loại phòng -->
+  <section class="container mt-5">
+    <h3 class="mb-4">Danh sách phòng</h3>
+
+    <ul class="nav nav-tabs" id="roomTabs" role="tablist">
+      <li class="nav-item"><button class="nav-link" id="don-tab" data-bs-toggle="tab" data-bs-target="#don" type="button">Phòng đơn</button></li>
+      <li class="nav-item"><button class="nav-link" id="doi-tab" data-bs-toggle="tab" data-bs-target="#doi" type="button">Phòng đôi</button></li>
+      <li class="nav-item"><button class="nav-link" id="vip-tab" data-bs-toggle="tab" data-bs-target="#vip" type="button">Phòng VIP</button></li>
+    </ul>
+
+    <div class="tab-content mt-4">
+      <!-- Phòng đơn -->
+      <div class="tab-pane fade" id="don">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="../img/phongdon.jpeg" class="card-img-top" alt="Phòng đơn">
+              <div class="card-body">
+                <h5 class="card-title">Phòng đơn tiêu chuẩn</h5>
+                <p class="card-text">Giá: 500.000đ/đêm</p>
+                <a href="room-single.html" class="btn btn-primary">Xem chi tiết</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phòng đôi -->
+      <div class="tab-pane fade" id="doi">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="../img/phongdoi.jpg" class="card-img-top" alt="Phòng đôi">
+              <div class="card-body">
+                <h5 class="card-title">Phòng đôi tiện nghi</h5>
+                <p class="card-text">Giá: 800.000đ/đêm</p>
+                <a href="room-double.html" class="btn btn-primary">Xem chi tiết</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phòng VIP -->
+      <div class="tab-pane fade" id="vip">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="../img/phongvip.jpg" class="card-img-top" alt="Phòng VIP">
+              <div class="card-body">
+                <h5 class="card-title">Phòng VIP hạng sang</h5>
+                <p class="card-text">Giá: 1.500.000đ/đêm</p>
+                <a href="room-vip.html" class="btn btn-primary">Xem chi tiết</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2025 Khách sạn Thành Công</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="../libs/jquery/jquery.min.js"></script>
+  <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Đọc loại phòng từ URL: ?loaiPhong=vip
+    const urlParams = new URLSearchParams(window.location.search);
+    const loaiPhong = urlParams.get("loaiPhong") || "don"; // Mặc định là "don"
+
+    // Kích hoạt tab tương ứng
+    document.addEventListener("DOMContentLoaded", function () {
+      const tabTrigger = document.querySelector(`button[data-bs-target="#${loaiPhong}"]`);
+      if (tabTrigger) {
+        new bootstrap.Tab(tabTrigger).show();
+      }
+    });
+  </script>
+</body>
+</html>

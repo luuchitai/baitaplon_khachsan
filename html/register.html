@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng ký - Khách sạn Thành Công</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Header + Logo -->
+  <header class="bg-light p-3 text-center">
+    <img src="../img/logo.jpg" alt="Logo Khách sạn" height="80">
+    <h1 class="mt-2">Khách sạn Thành Công</h1>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Trang chủ</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+            <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+            <li class="nav-item"><a class="nav-link active" href="checkout.html">Thanh toán</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">Tin tức</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Form đăng ký -->
+  <section class="container mt-4">
+    <h3>Đăng ký tài khoản</h3>
+    <form id="registerForm" class="row g-3">
+      <div class="col-md-6">
+        <label for="fullname" class="form-label">Họ và tên:</label>
+        <input type="text" class="form-control" id="fullname" required>
+        <div class="invalid-feedback">Họ tên phải viết hoa chữ cái đầu, không chứa số và ký tự đặc biệt.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" required>
+        <div class="invalid-feedback">Email phải kết thúc bằng @gmail.com</div>
+      </div>
+      <div class="col-md-6">
+        <label for="password" class="form-label">Mật khẩu:</label>
+        <input type="password" class="form-control" id="password" required>
+        <div class="invalid-feedback">Mật khẩu phải có ít nhất 6 ký tự.</div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Đăng ký</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2025 Khách sạn Thành Công. Mọi quyền được bảo lưu.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../libs/jquery/jquery.min.js"></script>
+  <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Validation logic
+    $(document).ready(function () {
+      $('#registerForm').on('submit', function (e) {
+        e.preventDefault();
+        let isValid = true;
+
+        const name = $('#fullname').val().trim();
+        const email = $('#email').val().trim();
+        const password = $('#password').val();
+
+        // Kiểm tra họ tên: Viết hoa đầu, không số/ký tự đặc biệt
+        const nameRegex = /^([A-ZÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ][a-zàáảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵ]+)(\s[A-ZÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ][a-zàáảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵ]*)*$/;
+
+        if (!nameRegex.test(name)) {
+          $('#fullname').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#fullname').removeClass('is-invalid');
+        }
+
+        // Kiểm tra email
+        if (!email.endsWith('@gmail.com')) {
+          $('#email').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#email').removeClass('is-invalid');
+        }
+
+        // Kiểm tra mật khẩu
+        if (password.length < 6) {
+          $('#password').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#password').removeClass('is-invalid');
+        }
+
+        // Nếu hợp lệ thì xử lý
+        if (isValid) {
+          alert('Đăng ký thành công!');
+          $('#registerForm')[0].reset();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

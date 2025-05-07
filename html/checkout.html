@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thanh toán - Khách sạn Thành Công</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-light p-3 text-center">
+    <img src="../img/logo.jpg" alt="Logo" height="80">
+    <h1 class="mt-2">Khách sạn Thành Công</h1>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Trang chủ</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+            <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+            <li class="nav-item"><a class="nav-link active" href="checkout.html">Thanh toán</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">Tin tức</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Giỏ hàng -->
+  <section class="container mt-4">
+    <div id="cartItems" class="mb-4">
+      <!-- Danh sách phòng sẽ được hiển thị bằng JS -->
+    </div>
+  </section>
+  <!-- Form thanh toán -->
+  <section class="container">
+    <h3>Thông tin thanh toán</h3>
+    <form id="checkoutForm" class="row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Họ tên</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="col-md-6">
+        <label for="phone" class="form-label">Số điện thoại</label>
+        <input type="tel" class="form-control" id="phone" required>
+      </div>
+      <div class="col-md-6">
+        <label for="note" class="form-label">Ghi chú (tuỳ chọn)</label>
+        <textarea class="form-control" id="note" rows="2"></textarea>
+      </div>
+      <div class="col-12">
+      </div>
+    </form>
+  </section>
+  <section class="container mt-4">
+    <h3>Phòng vừa đặt</h3>
+    <div id="thongTinPhong" class="border p-3 rounded bg-light"></div>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2025 Khách sạn Thành Công</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="../libs/jquery/jquery.min.js"></script>
+  <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Hiển thị giỏ hàng từ localStorage
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartDiv = document.getElementById('cartItems');
+    if (cartItems.length === 0) {
+      cartDiv.innerHTML = "<p>.</p>";
+    } else {
+      cartDiv.innerHTML = cartItems.map(item => `
+        <div class="card mb-2">
+          <div class="card-body">
+            <h5 class="card-title">${item.name}</h5>
+            <p class="card-text">Giá: ${item.price} VND</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Xác nhận đặt phòng
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Cảm ơn bạn đã đặt phòng! Chúng tôi sẽ liên hệ sớm.");
+      localStorage.removeItem('cart');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const phong = JSON.parse(localStorage.getItem('phongDaDat'));
+      if (phong) {
+        document.getElementById('thongTinPhong').innerHTML = `
+          <p><strong>Loại phòng:</strong> ${phong.ten}</p>
+          <p><strong>Giá:</strong> ${phong.gia}</p>
+          <p>Vui lòng kiểm tra lại thông tin trước khi xác nhận thanh toán.</p>
+          <button class="btn btn-primary">Xác nhận thanh toán</button>
+        `;
+      } else {
+        document.getElementById('thongTinPhong').innerHTML = '<p>Không có thông tin đặt phòng nào.</p>';
+      }
+    });
+  </script>
+  
+
+  
