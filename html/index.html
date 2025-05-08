@@ -29,7 +29,6 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
           <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
-          <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
           <li class="nav-item"><a class="nav-link" href="checkout.html">Thanh toán</a></li>
           <li class="nav-item"><a class="nav-link" href="news.html">Tin tức</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
@@ -38,22 +37,49 @@
     </div>
   </nav>
 
-  <!-- Đăng nhập -->
+  <!-- Đăng nhập và Đăng ký -->
   <section class="container mt-4">
-    <h3>Đăng nhập</h3>
-    <form id="loginForm" class="row g-3">
+    <div class="row">
+      <!-- Đăng nhập -->
       <div class="col-md-6">
-        <label for="username" class="form-label">Tên đăng nhập:</label>
-        <input type="text" class="form-control" id="username" required>
+        <h3>Đăng nhập</h3>
+        <form id="loginForm" class="row g-3">
+          <div class="col-12">
+            <label for="username" class="form-label">Tên đăng nhập:</label>
+            <input type="text" class="form-control" id="username" required>
+          </div>
+          <div class="col-12">
+            <label for="password" class="form-label">Mật khẩu:</label>
+            <input type="password" class="form-control" id="password" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+          </div>
+        </form>
       </div>
+
+      <!-- Đăng ký -->
       <div class="col-md-6">
-        <label for="password" class="form-label">Mật khẩu:</label>
-        <input type="password" class="form-control" id="password" required>
+        <h3>Đăng ký</h3>
+        <form id="registerForm" class="row g-3">
+          <div class="col-12">
+            <label for="newUsername" class="form-label">Tên đăng nhập:</label>
+            <input type="text" class="form-control" id="newUsername" required>
+          </div>
+          <div class="col-12">
+            <label for="newEmail" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="newEmail" required>
+          </div>
+          <div class="col-12">
+            <label for="newPassword" class="form-label">Mật khẩu:</label>
+            <input type="password" class="form-control" id="newPassword" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-success">Đăng ký</button>
+          </div>
+        </form>
       </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-      </div>
-    </form>
+    </div>
   </section>
 
   <!-- Tìm kiếm phòng -->
@@ -68,14 +94,7 @@
           <option value="vip">Phòng VIP</option>
         </select>
       </div>
-      <div class="col-md-4">
-        <label for="ngayDen" class="form-label">Ngày đến:</label>
-        <input type="date" class="form-control" id="ngayDen" name="ngayDen">
-      </div>
-      <div class="col-md-4">
-        <label for="ngayDi" class="form-label">Ngày đi:</label>
-        <input type="date" class="form-control" id="ngayDi" name="ngayDi">
-      </div>
+    
       <div class="col-12">
         <button type="submit" class="btn btn-success">Tìm kiếm</button>
       </div>
@@ -90,6 +109,36 @@
   <!-- Script -->
   <script src="../libs/jquery/jquery.min.js"></script>
   <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/script.js"></script>
+
+  <!-- Xử lý đăng ký & đăng nhập -->
+  <script>
+    // Đăng ký
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const newUser = {
+        username: document.getElementById("newUsername").value,
+        email: document.getElementById("newEmail").value,
+        password: document.getElementById("newPassword").value
+      };
+      localStorage.setItem("registeredUser", JSON.stringify(newUser));
+      alert("Đăng ký thành công!");
+    });
+
+    // Đăng nhập
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
+      if (storedUser && username === storedUser.username && password === storedUser.password) {
+        alert("Đăng nhập thành công!");
+        window.location.href = "rooms.html";
+        // Có thể redirect hoặc set session giả lập
+      } else {
+        alert("Tên đăng nhập hoặc mật khẩu sai!");
+      }
+    });
+  </script>
 </body>
 </html>

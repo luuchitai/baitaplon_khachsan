@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Chi tiết phòng - Khách sạn Thành Công</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
@@ -20,7 +20,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Trang chủ</a>
+      <a class="navbar-brand" href="#">Phòng</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,11 +29,9 @@
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
             <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
-            <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
-            <li class="nav-item"><a class="nav-link active" href="checkout.html">Thanh toán</a></li>
-            <li class="nav-item"><a class="nav-link active" href="news.html">Tin tức</a></li>
+            <li class="nav-item"><a class="nav-link" href="checkout.html">Thanh toán</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">Tin tức</a></li>
             <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
-
         </ul>
       </div>
     </div>
@@ -59,7 +57,9 @@
           <li>Bữa sáng miễn phí</li>
         </ul>
         <p><strong>Mô tả:</strong> Phòng VIP là lựa chọn hoàn hảo cho kỳ nghỉ sang trọng và thư giãn, với không gian rộng rãi, tiện nghi cao cấp và view tuyệt đẹp hướng biển.</p>
-        <a href="booking.html" class="btn btn-success mt-3">Đặt phòng ngay</a>
+        
+        <!-- Nút đặt phòng -->
+        <button id="btnDatPhong" class="btn btn-success mt-3">Đặt phòng ngay</button>
       </div>
     </div>
   </section>
@@ -72,5 +72,21 @@
   <!-- Scripts -->
   <script src="../libs/jquery/jquery.min.js"></script>
   <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Xử lý nút đặt phòng
+    document.getElementById("btnDatPhong").addEventListener("click", function () {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+      if (isLoggedIn === "true") {
+        // Người dùng đã đăng nhập, chuyển sang booking.html
+        window.location.href = "booking.html";
+      } else {
+        // Người dùng chưa đăng nhập
+        alert("Bạn phải đăng nhập trước khi đặt phòng");
+        // Nếu muốn, có thể chuyển sang trang login:
+        // window.location.href = "login.html";
+      }
+    });
+  </script>
 </body>
 </html>

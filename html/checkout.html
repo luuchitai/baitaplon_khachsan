@@ -18,28 +18,27 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">Trang chủ</a>
+      <a class="navbar-brand" href="index.html">Thanh toán</a>
       <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
-            <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
-            <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
-            <li class="nav-item"><a class="nav-link active" href="checkout.html">Thanh toán</a></li>
-            <li class="nav-item"><a class="nav-link active" href="news.html">Tin tức</a></li>
-            <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+          <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="rooms.html">Phòng</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Thanh toán</a></li>
+          <li class="nav-item"><a class="nav-link" href="news.html">Tin tức</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
   <!-- Giỏ hàng -->
   <section class="container mt-4">
-    <div id="cartItems" class="mb-4">
-      <!-- Danh sách phòng sẽ được hiển thị bằng JS -->
-    </div>
+    <div id="cartItems" class="mb-4"></div>
   </section>
+
   <!-- Form thanh toán -->
   <section class="container">
     <h3>Thông tin thanh toán</h3>
@@ -60,22 +59,50 @@
         <label for="note" class="form-label">Ghi chú (tuỳ chọn)</label>
         <textarea class="form-control" id="note" rows="2"></textarea>
       </div>
-      <div class="col-12">
+      <div class="col-md-12">
+        <label class="form-label">Phương thức thanh toán</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="paymentMethod" id="prepay" value="Trả trước" required>
+          <label class="form-check-label" for="prepay">Trả trước</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="paymentMethod" id="postpay" value="Trả sau" required>
+          <label class="form-check-label" for="postpay">Trả sau</label>
+        </div>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary mt-3">Xác nhận thanh toán</button>
       </div>
     </form>
   </section>
+
+  <!-- Phòng vừa đặt -->
   <section class="container mt-4">
     <h3>Phòng vừa đặt</h3>
     <div id="thongTinPhong" class="border p-3 rounded bg-light"></div>
   </section>
-  
+
+  <!-- Bảng kết quả xác nhận -->
+  <section class="container mt-4" id="xacNhanSection" style="display: none;">
+    <h4 class="text-success">Xác nhận đặt phòng thành công!</h4>
+    <table class="table table-bordered mt-3">
+      <tbody>
+        <tr><th>Họ tên</th><td id="xacNhanTen"></td></tr>
+        <tr><th>Email</th><td id="xacNhanEmail"></td></tr>
+        <tr><th>Số điện thoại</th><td id="xacNhanPhone"></td></tr>
+        <tr><th>Phương thức thanh toán</th><td id="xacNhanPTTT"></td></tr>
+        <tr><th>Loại phòng</th><td id="xacNhanLoaiPhong"></td></tr>
+        <tr><th>Giá</th><td id="xacNhanGiaPhong"></td></tr>
+      </tbody>
+    </table>
+  </section>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center p-3 mt-5">
     <p>&copy; 2025 Khách sạn Thành Công</p>
   </footer>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script src="../libs/jquery/jquery.min.js"></script>
   <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -83,7 +110,7 @@
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     const cartDiv = document.getElementById('cartItems');
     if (cartItems.length === 0) {
-      cartDiv.innerHTML = "<p>.</p>";
+      cartDiv.innerHTML = "<p>Không có phòng nào trong giỏ hàng.</p>";
     } else {
       cartDiv.innerHTML = cartItems.map(item => `
         <div class="card mb-2">
@@ -95,17 +122,7 @@
       `).join('');
     }
 
-    // Xác nhận đặt phòng
-    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert("Cảm ơn bạn đã đặt phòng! Chúng tôi sẽ liên hệ sớm.");
-      localStorage.removeItem('cart');
-      window.location.href = 'index.html';
-    });
-  </script>
-</body>
-</html>
-<script>
+    // Hiển thị thông tin phòng
     document.addEventListener("DOMContentLoaded", function () {
       const phong = JSON.parse(localStorage.getItem('phongDaDat'));
       if (phong) {
@@ -113,13 +130,36 @@
           <p><strong>Loại phòng:</strong> ${phong.ten}</p>
           <p><strong>Giá:</strong> ${phong.gia}</p>
           <p>Vui lòng kiểm tra lại thông tin trước khi xác nhận thanh toán.</p>
-          <button class="btn btn-primary">Xác nhận thanh toán</button>
         `;
       } else {
         document.getElementById('thongTinPhong').innerHTML = '<p>Không có thông tin đặt phòng nào.</p>';
       }
     });
-  </script>
-  
 
-  
+    // Xác nhận thanh toán
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const ten = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const pttt = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+      const phong = JSON.parse(localStorage.getItem('phongDaDat')) || { ten: "N/A", gia: "N/A" };
+
+      // Hiển thị thông tin xác nhận
+      document.getElementById('xacNhanTen').innerText = ten;
+      document.getElementById('xacNhanEmail').innerText = email;
+      document.getElementById('xacNhanPhone').innerText = phone;
+      document.getElementById('xacNhanPTTT').innerText = pttt;
+      document.getElementById('xacNhanLoaiPhong').innerText = phong.ten;
+      document.getElementById('xacNhanGiaPhong').innerText = phong.gia;
+
+      document.getElementById('xacNhanSection').style.display = 'block';
+
+      alert("Cảm ơn bạn đã đặt phòng!");
+      localStorage.removeItem('cart');
+    });
+  </script>
+</body>
+</html>
